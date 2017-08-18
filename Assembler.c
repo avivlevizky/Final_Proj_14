@@ -496,37 +496,45 @@ void cleanAllmem()
     
     i=0;
     
-    while(i<SC)
+    if(SC>0)
     {
-        free(symbol_table[i]->label_name);
-        free(symbol_table[i]);
-        i++;
+        while(i<SC)
+        {
+            free(symbol_table[i]->label_name);
+            free(symbol_table[i]);
+            i++;
+        }
+        free(symbol_table);
+        i=0;
     }
     
-    free(symbol_table);
-    i=0;
-    
-    while(i<IC)
+   
+    if(IC>0)
     {
-        free(instructions_table[i]->order);
-        free(instructions_table[i]);
-        i++;
+        while(i<IC)
+        {
+            free(instructions_table[i]->order);
+            free(instructions_table[i]);
+            i++;
+        }
+        
+        free(instructions_table);
+        i=0;
     }
     
-    free(instructions_table);
-    i=0;
-    
-    
-    while(i<EC)
+    if(EC>0)
     {
-        free(ErrorsAssembler[i]);
-        i++;
+        while(i<EC)
+        {
+            free(ErrorsAssembler[i]);
+            i++;
+        }
+        free(ErrorsAssembler);
     }
     
-    free(ErrorsAssembler);
+    if(DC>0)
+        free(data_table);
     
-    
-    free(data_table);
     SymbolEntCount=0;
     SymbolExtCount=0;
     IC=0;
@@ -596,7 +604,6 @@ int main(int argc,char ** argv) {
                 printf("%s\n",ErrorsAssembler[i]);
                 i++;
             }
-            free(asName);
             goto Final;
         }
         
